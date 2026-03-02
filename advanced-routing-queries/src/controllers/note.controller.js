@@ -1,6 +1,30 @@
 const mongoose = require("mongoose");
 const Note = require("../models/note.model");
 
-// Controller methods will go here
+exports.createNote = async (req, res) => {
+  try {
+    const { title, content, category, isPinned } = req.body;
 
-module.exports = {};
+    if (!title || !content) {
+      return res.status(400).json({
+        success: false,
+        message: "Title and content are required",
+        data: null,
+      });
+    }
+
+    const note = await Note.create({ title, content, category, isPinned });
+
+    res.status(201).json({
+      success: true,
+      message: "Note created successfully",
+      data: note,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+      data: null,
+    });
+  }
+};
