@@ -8,6 +8,7 @@ router.get("/category/:category", noteController.getNotesByCategory);
 router.get("/status/:isPinned", noteController.getNotesByStatus);
 router.post("/", noteController.createNote);
 router.get("/", noteController.getAllNotes);
+router.get("/:id/summary", noteController.getNoteSummary);
 router.get("/:id", noteController.getNoteById);
 router.put("/:id", noteController.replaceNote);
 router.patch("/:id", noteController.updateNote);
