@@ -7,6 +7,7 @@ router.delete("/bulk", noteController.deleteBulkNotes);
 router.get("/category/:category", noteController.getNotesByCategory);
 router.get("/status/:isPinned", noteController.getNotesByStatus);
 router.get("/filter", noteController.filterNotes);
+router.get("/filter/pinned", noteController.getPinnedNotes);
 router.post("/", noteController.createNote);
 router.get("/", noteController.getAllNotes);
 router.get("/:id/summary", noteController.getNoteSummary);

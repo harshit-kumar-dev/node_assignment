@@ -403,3 +403,25 @@ exports.filterNotes = async (req, res) => {
     });
   }
 };
+
+exports.getPinnedNotes = async (req, res) => {
+  try {
+    const filter = { isPinned: true };
+    if (req.query.category) filter.category = req.query.category;
+
+    const notes = await Note.find(filter);
+
+    res.status(200).json({
+      success: true,
+      message: "Pinned notes fetched successfully",
+      count: notes.length,
+      data: notes,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+      data: null,
+    });
+  }
+};
