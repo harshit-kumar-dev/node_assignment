@@ -10,6 +10,7 @@ router.get("/filter", noteController.filterNotes);
 router.get("/filter/pinned", noteController.getPinnedNotes);
 router.get("/filter/category", noteController.filterByCategory);
 router.get("/filter/date-range", noteController.filterByDateRange);
+router.get("/paginate", noteController.paginateNotes);
 router.post("/", noteController.createNote);
 router.get("/", noteController.getAllNotes);
 router.get("/:id/summary", noteController.getNoteSummary);
