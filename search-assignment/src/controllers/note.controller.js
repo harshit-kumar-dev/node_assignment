@@ -363,3 +363,32 @@ exports.searchAll = async (req, res) => {
     });
   }
 };
+
+exports.filterAndSort = async (req, res) => {
+  try {
+    const { category, isPinned, sortBy, order } = req.query;
+
+    const filter = {};
+    if (category) filter.category = category;
+    if (isPinned !== undefined) filter.isPinned = isPinned === "true";
+
+    const allowedSortFields = ["title", "createdAt", "updatedAt", "category"];
+    const sortField = allowedSortFields.includes(sortBy) ? sortBy : "createdAt";
+    const sortOrder = order === "asc" ? 1 : -1;
+
+    const notes = await Note.find(filter).sort({ [sortField]: sortOrder });
+
+    res.status(200).json({
+      success: true,
+      message: "Notes fetched successfully",
+      count: notes.length,
+      data: notes,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+      data: null,
+    });
+  }
+};
