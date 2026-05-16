@@ -392,3 +392,40 @@ exports.filterAndSort = async (req, res) => {
     });
   }
 };
+
+exports.filterAndPaginate = async (req, res) => {
+  try {
+    const { category, isPinned, page, limit } = req.query;
+
+    const filter = {};
+    if (category) filter.category = category;
+    if (isPinned !== undefined) filter.isPinned = isPinned === "true";
+
+    const pageNum = parseInt(page) || 1;
+    const limitNum = parseInt(limit) || 10;
+    const skip = (pageNum - 1) * limitNum;
+
+    const total = await Note.countDocuments(filter);
+    const notes = await Note.find(filter).skip(skip).limit(limitNum);
+
+    res.status(200).json({
+      success: true,
+      message: "Notes fetched successfully",
+      data: notes,
+      pagination: {
+        total,
+        page: pageNum,
+        limit: limitNum,
+        totalPages: Math.ceil(total / limitNum),
+        hasNextPage: pageNum < Math.ceil(total / limitNum),
+        hasPrevPage: pageNum > 1,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+      data: null,
+    });
+  }
+};
