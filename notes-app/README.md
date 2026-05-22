@@ -1,52 +1,66 @@
-# Assignment 01: Notes Management REST API (CRUD)
+# Assignment 01 - Notes Management REST API
+
+This is the first assignment for the **Backend with Node.js** course. It focuses on building a fundamental REST API using Node.js, Express, and MongoDB (via Mongoose).
 
 ## Goal
-Build a Notes Management REST API using Node.js, Express, and MongoDB (Mongoose). This assignment focuses on getting the fundamentals right: database connection, schema design, MVC structure, and basic CRUD operations.
+To build a fundamental **Notes Management REST API** focusing on the core principles of backend development:
+- Database connection
+- Schema design
+- MVC (Model-View-Controller) structure
+- Basic CRUD operations using correct HTTP methods.
 
-## Features
-- Complete MVC (Model-View-Controller) architecture.
-- MongoDB connection using Mongoose.
-- RESTful endpoints for Create, Read, Update, and Delete operations.
-- Data validation and structured JSON responses.
+## Features Implemented
+- **Create a Note**: `POST /api/notes`
+- **Get All Notes**: `GET /api/notes`
+- **Get Note by ID**: `GET /api/notes/:id`
+- **Replace a Note**: `PUT /api/notes/:id`
+- **Update a Note**: `PATCH /api/notes/:id`
+- **Delete a Note**: `DELETE /api/notes/:id`
 
-## Prerequisites
-- Node.js installed
-- MongoDB URI (local or MongoDB Atlas)
+## Tech Stack
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- dotenv (for environment variables)
+- nodemon (for development)
 
-## Installation & Setup
-
-1. Clone the repository and navigate to this directory:
-   ```bash
-   cd notes-app
-   ```
-2. Install the necessary dependencies:
+## Setup & Run
+1. Navigate to the `notes-app` folder.
+2. Install dependencies:
    ```bash
    npm install
    ```
-3. Create a `.env` file in the root of this project and define the following variables:
+3. Set up the `.env` file using the `.env.example` as a template:
    ```env
    PORT=3000
-   MONGO_URI=your_mongodb_connection_string
+   MONGODB_URI=your_mongodb_connection_string
    ```
-4. Start the server in development mode:
-   ```bash
-   npm run dev
-   ```
+4. Start the server:
+   - For development: `npm run dev`
+   - For production: `npm start`
 
-## API Endpoints
+## Standard JSON Response Format
+All endpoints return responses in the following standard format:
+```json
+{
+  "success": true,
+  "message": "Descriptive message here",
+  "data": { ... } // or array of objects
+}
+```
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/notes` | Create a new note |
-| GET | `/api/notes` | Fetch all notes |
-| GET | `/api/notes/:id` | Fetch a specific note by ID |
-| PUT | `/api/notes/:id` | Replace an existing note completely |
-| PATCH | `/api/notes/:id` | Update specific fields of a note |
-| DELETE | `/api/notes/:id` | Delete a note by ID |
-
-## Schema Design (Note Model)
-- `title` (String): Required, max 100 characters.
-- `content` (String): Required.
-- `category` (String): Enum (`work`, `personal`, `study`), defaults to `personal`.
-- `isPinned` (Boolean): Defaults to `false`.
-- Timestamps (`createdAt`, `updatedAt`) are managed automatically by Mongoose.
+## Structure
+```
+src/
+├── config/
+│   └── db.js         # Database configuration
+├── controllers/
+│   └── note.controller.js  # Request handlers
+├── models/
+│   └── note.model.js       # Mongoose schema
+├── routes/
+│   └── note.routes.js      # Express routing
+├── app.js            # Express app setup
+└── index.js          # Entry point
+```
