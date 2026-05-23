@@ -261,6 +261,16 @@ exports.deleteBulkNotes = async (req, res) => {
       });
     }
 
+    // Validate that all IDs are valid ObjectIds
+    const invalidIds = ids.filter(id => !mongoose.Types.ObjectId.isValid(id));
+    if (invalidIds.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: "One or more invalid note IDs provided",
+        data: invalidIds,
+      });
+    }
+
     const result = await Note.deleteMany({ _id: { $in: ids } });
 
     res.status(200).json({
@@ -271,7 +281,7 @@ exports.deleteBulkNotes = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Server error",
+      message: error.message || "Server error",
       data: null,
     });
   }
