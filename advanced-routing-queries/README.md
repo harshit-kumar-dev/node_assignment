@@ -1,65 +1,74 @@
-# Assignment 02: Advanced Routing & Queries
+# Assignment 02 - Advanced Routing & Queries
+
+This is the second assignment for the **Backend with Node.js** course. It expands on the first assignment by introducing more advanced routing concepts and MongoDB queries, specifically focusing on pagination, sorting, and filtering via query parameters.
 
 ## Goal
-A fresh implementation of the Notes Management API that rebuilds the foundation and introduces advanced routing and database querying features. This includes route parameters, query parameters, pagination, sorting, and filtering.
+To build a **Notes Management REST API** from scratch, expanding upon the CRUD operations built previously by adding:
+- Route parameters
+- Query parameters
+- Pagination
+- Sorting
+- Filtering
 
-## Features
-- Standard CRUD operations (Create, Read, Update, Delete).
-- Bulk operations (Create multiple, Delete multiple).
-- Data filtering (by category, pinned status, date ranges).
-- Data sorting (ascending/descending by various fields).
-- Pagination to handle large datasets effectively.
-- Comprehensive endpoint separation and routing order management.
+## Features Implemented
+1. **Core CRUD**:
+   - `POST /api/notes` - Create Note
+   - `GET /api/notes` - Get All Notes
+   - `GET /api/notes/:id` - Get Note by ID
+   - `PUT /api/notes/:id` - Replace Note
+   - `PATCH /api/notes/:id` - Update Note
+   - `DELETE /api/notes/:id` - Delete Note
+2. **Filtering**:
+   - `GET /api/notes/filter/category?category=work` - Filter by category
+   - `GET /api/notes/filter/pinned` - Get pinned notes
+   - `GET /api/notes/filter/date-range?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD` - Filter by date range
+   - `GET /api/notes/filter?category=work&isPinned=true` - Multiple filters
+3. **Pagination**:
+   - `GET /api/notes/paginate?page=1&limit=5` - Paginate all notes
+   - `GET /api/notes/paginate/category/:category?page=1&limit=5` - Paginate notes by category
+4. **Sorting**:
+   - `GET /api/notes/sort?sortBy=createdAt&order=asc` - Sort all notes
+   - `GET /api/notes/sort/pinned?sortBy=updatedAt&order=desc` - Sort pinned notes
+5. **Additional Utilities**:
+   - `GET /api/notes/:id/summary` - Get note summary
 
-## Prerequisites
-- Node.js installed
-- MongoDB URI (local or MongoDB Atlas)
+## Tech Stack
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- dotenv
+- nodemon
 
-## Installation & Setup
-
-1. Clone the repository and navigate to this directory:
-   ```bash
-   cd advanced-routing-queries
-   ```
-2. Install the necessary dependencies:
+## Setup & Run
+1. Navigate to the `advanced-routing-queries` folder.
+2. Install dependencies:
    ```bash
    npm install
    ```
-3. Create a `.env` file in the root of this project:
+3. Set up the `.env` file using the `.env.example` as a template:
    ```env
    PORT=3000
-   MONGO_URI=your_mongodb_connection_string
+   MONGODB_URI=your_mongodb_connection_string
    ```
-4. Start the server in development mode:
-   ```bash
-   npm run dev
-   ```
+4. Start the server:
+   - For development: `npm run dev`
+   - For production: `npm start`
 
-## API Endpoints
-
-### CRUD & Bulk Operations
-- `POST /api/notes` - Create a single note
-- `POST /api/notes/bulk` - Create multiple notes at once
-- `GET /api/notes` - Get all notes
-- `GET /api/notes/:id` - Get note by ID
-- `GET /api/notes/:id/summary` - Get brief summary of note
-- `PUT /api/notes/:id` - Replace a note
-- `PATCH /api/notes/:id` - Update a note partially
-- `DELETE /api/notes/:id` - Delete a note
-- `DELETE /api/notes/bulk` - Delete multiple notes using an array of IDs
-
-### Sorting Endpoints
-- `GET /api/notes/sort` - Sort notes (e.g., `?sortBy=createdAt&order=desc`)
-- `GET /api/notes/sort/pinned` - Sort pinned notes specifically
-
-### Pagination Endpoints
-- `GET /api/notes/paginate` - Paginate notes (e.g., `?page=1&limit=5`)
-- `GET /api/notes/paginate/category/:category` - Paginate notes within a specific category
-
-### Filtering Endpoints
-- `GET /api/notes/filter` - Filter notes using query parameters (e.g., `?isPinned=true&category=work`)
-- `GET /api/notes/filter/pinned` - Get all pinned notes
-- `GET /api/notes/filter/category` - Get notes grouped by a specific category
-- `GET /api/notes/filter/date-range` - Filter notes between specific dates (e.g., `?startDate=...&endDate=...`)
-
-*Note: In Express, static routes must be defined before dynamic parameterized routes (`/:id`) to prevent path collision.*
+## Standard JSON Response Format
+All endpoints return responses in the following standard format, including pagination metadata when applicable:
+```json
+{
+  "success": true,
+  "message": "Descriptive message here",
+  "data": { ... },
+  "pagination": {
+    "total": 10,
+    "page": 1,
+    "limit": 5,
+    "totalPages": 2,
+    "hasNextPage": true,
+    "hasPrevPage": false
+  }
+}
+```
