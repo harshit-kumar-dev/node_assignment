@@ -1,69 +1,77 @@
-# Assignment 03: Search APIs & Combined Queries
+# Assignment 03 - Search APIs
+
+This is the third assignment for the **Backend with Node.js** course. It expands on the previous assignments by introducing MongoDB `$regex` searching and combining multiple querying operations together (search, filter, sort, and paginate).
 
 ## Goal
-The culmination of the Notes Management API projects. This assignment incorporates everything from previous iterations (CRUD, params, pagination, sorting) and introduces robust **search functionality** using MongoDB `$regex`. It combines search with filtering, sorting, and pagination dynamically.
+To build a **Notes Management REST API** from scratch that combines standard CRUD operations with advanced search functionality. Specifically:
+- Implement search using MongoDB `$regex` (case-insensitive)
+- Combine search with filtering, sorting, and pagination
+- Build advanced endpoints that handle multiple query parameters dynamically
 
-## Features
-- Fully functional CRUD and bulk operations.
-- Text search using MongoDB `$regex` capabilities.
-- Independent endpoints for searching by title, content, or both.
-- Combined query endpoints that handle complex parameter combinations dynamically.
-- A master query endpoint that supports simultaneous search, filtering, sorting, and pagination.
+## Features Implemented
+1. **Core CRUD & Bulk Operations**:
+   - `POST /api/notes` - Create Note
+   - `POST /api/notes/bulk` - Create Bulk Notes
+   - `GET /api/notes` - Get All Notes
+   - `GET /api/notes/:id` - Get Note by ID
+   - `PUT /api/notes/:id` - Replace Note
+   - `PATCH /api/notes/:id` - Update Note
+   - `DELETE /api/notes/:id` - Delete Note
+   - `DELETE /api/notes/bulk` - Delete Bulk Notes
+2. **Search Operations**:
+   - `GET /api/notes/search` - Search by Title (`?q=...`)
+   - `GET /api/notes/search/content` - Search by Content (`?q=...`)
+   - `GET /api/notes/search/all` - Search Title and Content (`?q=...`)
+3. **Combined Operations**:
+   - `GET /api/notes/filter-sort` - Filter & Sort combined
+   - `GET /api/notes/filter-paginate` - Filter & Paginate combined
+   - `GET /api/notes/sort-paginate` - Sort & Paginate combined
+   - `GET /api/notes/search-filter` - Search & Filter combined
+   - `GET /api/notes/search-sort-paginate` - Search, Sort, & Paginate combined
+   - `GET /api/notes/filter-sort-paginate` - Filter, Sort, & Paginate combined
+4. **Master Query**:
+   - `GET /api/notes/query` - A single endpoint supporting all functionalities simultaneously (Search, Filter, Sort, and Paginate)
 
-## Prerequisites
-- Node.js installed
-- MongoDB URI (local or MongoDB Atlas)
+## Tech Stack
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- dotenv
+- nodemon
 
-## Installation & Setup
-
-1. Clone the repository and navigate to this directory:
-   ```bash
-   cd search-assignment
-   ```
-2. Install the necessary dependencies:
+## Setup & Run
+1. Navigate to the `search-assignment` folder.
+2. Install dependencies:
    ```bash
    npm install
    ```
-3. Create a `.env` file in the root of this project:
+3. Set up the `.env` file using the `.env.example` as a template:
    ```env
    PORT=3000
-   MONGO_URI=your_mongodb_connection_string
+   MONGODB_URI=your_mongodb_connection_string
    ```
-4. Start the server in development mode:
-   ```bash
-   npm run dev
-   ```
+4. Start the server:
+   - For development: `npm run dev`
+   - For production: `npm start`
 
-## API Endpoints
+## API Testing
+A `postman_collection.json` file is included in this repository. You can import it directly into Postman to test all 18 endpoints systematically.
 
-### Standard & Bulk CRUD
-- `POST /api/notes` - Create Note
-- `POST /api/notes/bulk` - Create Bulk Notes
-- `GET /api/notes` - Get All Notes
-- `GET /api/notes/:id` - Get Note by ID
-- `PUT /api/notes/:id` - Replace Note
-- `PATCH /api/notes/:id` - Update Note
-- `DELETE /api/notes/:id` - Delete Note
-- `DELETE /api/notes/bulk` - Delete Bulk Notes
-
-### Search Endpoints
-- `GET /api/notes/search` - Search by Title (`?q=...`)
-- `GET /api/notes/search/content` - Search by Content (`?q=...`)
-- `GET /api/notes/search/all` - Search Title and Content (`?q=...`)
-
-### Combined Feature Endpoints
-- `GET /api/notes/filter-sort` - Combine Filtering & Sorting
-- `GET /api/notes/filter-paginate` - Combine Filtering & Pagination
-- `GET /api/notes/sort-paginate` - Combine Sorting & Pagination
-- `GET /api/notes/search-filter` - Combine Search & Filtering
-- `GET /api/notes/search-sort-paginate` - Combine Search, Sorting, & Pagination
-- `GET /api/notes/filter-sort-paginate` - Combine Filtering, Sorting, & Pagination
-
-### The Master Query Endpoint
-- `GET /api/notes/query` - A single endpoint supporting any combination of search (`q`), filtering (`category`, `isPinned`), sorting (`sortBy`, `order`), and pagination (`page`, `limit`). Example:
-  ```http
-  GET /api/notes/query?q=meeting&category=work&isPinned=true&sortBy=createdAt&order=desc&page=1&limit=5
-  ```
-
-## Postman Collection
-A `postman_collection.json` file is included in this repository. You can import it directly into Postman to easily test all 18 endpoints provided by this assignment.
+## Standard JSON Response Format
+All endpoints return responses in the following standard format, including pagination metadata when applicable:
+```json
+{
+  "success": true,
+  "message": "Descriptive message here",
+  "data": { ... },
+  "pagination": {
+    "total": 10,
+    "page": 1,
+    "limit": 5,
+    "totalPages": 2,
+    "hasNextPage": true,
+    "hasPrevPage": false
+  }
+}
+```
