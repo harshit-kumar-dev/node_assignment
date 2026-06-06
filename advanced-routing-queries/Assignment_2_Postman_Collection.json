@@ -1,0 +1,240 @@
+{
+  "info": {
+    "name": "Notes Management API - Assignment 2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Create Single Note",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Learn Node.js\",\n  \"content\": \"Understand Express routing\",\n  \"category\": \"study\"\n}"
+        },
+        "url": { "raw": "http://localhost:3000/api/notes", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "notes"] }
+      }
+    },
+    {
+      "name": "2. Create Bulk Notes",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"notes\": [\n    { \"title\": \"Note 1\", \"content\": \"Content 1\", \"category\": \"work\" },\n    { \"title\": \"Note 2\", \"content\": \"Content 2\", \"category\": \"personal\" }\n  ]\n}"
+        },
+        "url": { "raw": "http://localhost:3000/api/notes/bulk", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "notes", "bulk"] }
+      }
+    },
+    {
+      "name": "3. Get All Notes",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:3000/api/notes", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "notes"] }
+      }
+    },
+    {
+      "name": "4. Get Note By ID",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:3000/api/notes/REPLACE_WITH_ID", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "notes", "REPLACE_WITH_ID"] }
+      }
+    },
+    {
+      "name": "5. Replace Note (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Updated Note\",\n  \"content\": \"Completely replaced\",\n  \"category\": \"work\",\n  \"isPinned\": true\n}"
+        },
+        "url": { "raw": "http://localhost:3000/api/notes/REPLACE_WITH_ID", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "notes", "REPLACE_WITH_ID"] }
+      }
+    },
+    {
+      "name": "6. Update Note (PATCH)",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"isPinned\": true\n}"
+        },
+        "url": { "raw": "http://localhost:3000/api/notes/REPLACE_WITH_ID", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "notes", "REPLACE_WITH_ID"] }
+      }
+    },
+    {
+      "name": "7. Delete Single Note",
+      "request": {
+        "method": "DELETE",
+        "url": { "raw": "http://localhost:3000/api/notes/REPLACE_WITH_ID", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "notes", "REPLACE_WITH_ID"] }
+      }
+    },
+    {
+      "name": "8. Delete Bulk Notes",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ids\": [\"ID1\", \"ID2\"]\n}"
+        },
+        "url": { "raw": "http://localhost:3000/api/notes/bulk", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "notes", "bulk"] }
+      }
+    },
+    {
+      "name": "9. Get Notes by Category",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:3000/api/notes/category/work", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "notes", "category", "work"] }
+      }
+    },
+    {
+      "name": "10. Get Notes by Pinned Status",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:3000/api/notes/status/true", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "notes", "status", "true"] }
+      }
+    },
+    {
+      "name": "11. Get Note Summary",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:3000/api/notes/REPLACE_WITH_ID/summary", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "notes", "REPLACE_WITH_ID", "summary"] }
+      }
+    },
+    {
+      "name": "12. Filter Notes",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/notes/filter?category=work&isPinned=true",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "notes", "filter"],
+          "query": [
+            { "key": "category", "value": "work" },
+            { "key": "isPinned", "value": "true" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "13. Filter Pinned Notes",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/notes/filter/pinned?category=study",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "notes", "filter", "pinned"],
+          "query": [{ "key": "category", "value": "study" }]
+        }
+      }
+    },
+    {
+      "name": "14. Filter by Category",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/notes/filter/category?name=personal",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "notes", "filter", "category"],
+          "query": [{ "key": "name", "value": "personal" }]
+        }
+      }
+    },
+    {
+      "name": "15. Filter by Date Range",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/notes/filter/date-range?from=2026-01-01&to=2026-12-31",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "notes", "filter", "date-range"],
+          "query": [
+            { "key": "from", "value": "2026-01-01" },
+            { "key": "to", "value": "2026-12-31" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "16. Paginate Notes",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/notes/paginate?page=1&limit=5",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "notes", "paginate"],
+          "query": [
+            { "key": "page", "value": "1" },
+            { "key": "limit", "value": "5" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "17. Paginate by Category",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/notes/paginate/category/work?page=1&limit=5",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "notes", "paginate", "category", "work"],
+          "query": [
+            { "key": "page", "value": "1" },
+            { "key": "limit", "value": "5" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "18. Sort Notes",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/notes/sort?sortBy=title&order=desc",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "notes", "sort"],
+          "query": [
+            { "key": "sortBy", "value": "title" },
+            { "key": "order", "value": "desc" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "19. Sort Pinned Notes",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/notes/sort/pinned?sortBy=createdAt&order=asc",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "notes", "sort", "pinned"],
+          "query": [
+            { "key": "sortBy", "value": "createdAt" },
+            { "key": "order", "value": "asc" }
+          ]
+        }
+      }
+    }
+  ]
+}
