@@ -1,0 +1,49 @@
+{
+  "info": {
+    "name": "Assignment 03 - Search APIs",
+    "description": "Postman collection for Search APIs Assignment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Create Note",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "url": {
+          "raw": "http://localhost:3000/api/notes",
+          "protocol": "http",
+          "host": [ "localhost" ],
+          "port": "3000",
+          "path": [ "api", "notes" ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Test Note\",\n  \"content\": \"This is a test note.\",\n  \"category\": \"work\",\n  \"isPinned\": false\n}"
+        }
+      }
+    },
+    {
+      "name": "18. Master Query",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/notes/query?q=test&category=work&page=1&limit=5&sortBy=createdAt&order=desc",
+          "protocol": "http",
+          "host": [ "localhost" ],
+          "port": "3000",
+          "path": [ "api", "notes", "query" ],
+          "query": [
+            { "key": "q", "value": "test" },
+            { "key": "category", "value": "work" },
+            { "key": "page", "value": "1" },
+            { "key": "limit", "value": "5" },
+            { "key": "sortBy", "value": "createdAt" },
+            { "key": "order", "value": "desc" }
+          ]
+        }
+      }
+    }
+  ]
+}
